@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
+    <meta name="description" content="Extreme temperatures over the past 24 hours">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+    <title>Extreme Weather Today</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container">
+        <img class="banner" src="/static/earth-banner.jpg" alt="">
+        <div class="bottom-right">Extreme Weather Today</div>
+      </div>
+      <select id="regions" required onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+        <option value="">Select a region</option>
+        {% for reg in regions %}
+          <option value="{{reg[0]}}">{{ reg[1] }}</option>
+        {% endfor %}
+      </select>
+
+      <p class="results-date">
+        {{ results[0][0] }} - {{ results[0][1] }}
+      </p> 
+      
+      {% for key, value in results[1].items() %}
+        <label for="{{key}}">{{key}}</label>
+        <table id = "{{key}}">
+          <col width="75%" />
+          <col width="25%" />
+          <thead>
+            <tr>
+              <th scope="col">Place</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for res in value %}
+              <tr>
+                <td>{{res[0]}}</td>
+                <td>{{res[1]}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+      
+    </div>
+  </body>
+</html>

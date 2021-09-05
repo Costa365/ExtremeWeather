@@ -1,0 +1,26 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+        - "5000:5000"
+    volumes:
+      - ./backend:/backend
+  
+  frontend:
+    build: ./frontend
+    ports:
+        - "5001:5001"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - backend
+      
+  integration-tests:
+    build: ./integration-tests
+    volumes:
+      - ./integration-tests:/integration-tests
+    depends_on:
+      - backend
+
+    

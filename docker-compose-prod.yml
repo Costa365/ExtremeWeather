@@ -1,0 +1,44 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+        - "5000:5000"
+    volumes:
+      - ./backend:/backend
+    networks:
+      - outside
+
+  frontend:
+    build: ./frontend
+    ports:
+        - "5005:5005"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - backend
+    networks:
+      - outside
+
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: ex-letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config/letsencrypt:/config
+    environment:
+      - EMAIL=test@test.com
+      - URL=extreme-weather.gq
+      - VALIDATION=http
+      - TZ=Europe/Stockholm
+    depends_on:
+      - frontend
+    networks:
+      - outside
+
+networks:
+  outside:
+    external:
+      name: ExternalNetwork

@@ -1,0 +1,39 @@
+label {
+  font-weight:bold
+}
+
+.container {
+  position: relative;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  color: rgb(181, 204, 228);
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+.banner {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.results-date {
+  font-style: italic;
+  font-size: 4;
+}
+
+table.fixed {
+  table-layout:fixed; 
+}
+
+table.fixed td {
+  overflow: hidden; 
+}
+
+:root {
+  --spacing: 1px;
+}
