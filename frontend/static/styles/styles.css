@@ -37,3 +37,8 @@ table.fixed td {
 :root {
   --spacing: 1px;
 }
+
+select {
+  height: 40px;
+  padding: .325rem 1.75rem .325rem .5rem;
+}

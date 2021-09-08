@@ -16,7 +16,7 @@ class Results():
     self.resultsWin = self.__parseResults(self.sections["wind"][1],len(self.html))
     self.title = self.__parseTitle()
 
-  def __parseRes#### ults(self, start, end):
+  def __parseResults(self, start, end):
     results=[]
     if start > 0 and end > 0:
       html = self.html[start:end]

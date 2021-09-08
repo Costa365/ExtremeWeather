@@ -10,7 +10,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-        - "5001:5001"
+        - "5005:5005"
     volumes:
       - ./frontend:/frontend
     depends_on:
