@@ -26,7 +26,8 @@ class Results():
   def __parseTitle(self):
     title = []
     results = re.findall(r"<H3>(.*?)</h3>", self.html, re.IGNORECASE)
-    title.append(results[0])
+    header = results[0].replace("<font color=\"#339933\">","").replace("</font>","")
+    title.append(header)
     results = re.findall(r"<H4>(.*?UTC)</h4>", self.html, re.IGNORECASE)
     title.append(results[0])
     return title
