@@ -1,0 +1,91 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5004:5004"
+    volumes:
+      - ./backend:/backend
+    networks:
+      - outside
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - backend
+    networks:
+      - outside
+
+  nginx: 
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - outside
+
+  mongodb:
+    image: "mongo:4.2"
+    volumes:
+      - ../NoteApp/data:/data/db
+    ports:
+     - "27017:27017"
+    networks:
+#     - app-net
+     - outside
+  
+  notes-backend:
+    build: 
+      context: ../NoteApp/node-backend/
+      dockerfile: Dockerfile-prod
+    environment:
+      #- NOTES_ENC_KEY=${NOTES_ENC_KEY}
+      #- NOTES_SIG_KEY=${NOTES_SIG_KEY}
+      #- EMAIL_USER=${EMAIL_USER}
+      #- EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      #- NOTES_SECRET=${NOTES_SECRET}
+      - NOTES_ENC_KEY=g6G6IwUL8rj/n4RCD01JUp5MPFWDIzOAyIoLS/2k3zk=
+      - NOTES_SIG_KEY=TwWb8ywuA7V/NL2DJpH9FpNbvRAaUUkKGXdTK0MLzum19fZCZsbepx+UVfqj+absLqWuPY0MhR/OJr5ciVOJCg==
+      - EMAIL_USER=notesapp001@gmail.com
+      - EMAIL_PASSWORD=NotesApp15243
+      - NOTES_SECRET=jhdkfgJHGNVvvCFhBbb656
+    ports:
+      - "6200:6200"
+    volumes:
+      - ../NoteApp/node-backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongodb
+    networks:
+#      - app-net
+      - outside
+
+  notes-frontend:
+    build: 
+      context: ../NoteApp/react-frontend/
+      dockerfile: Dockerfile-prod
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../NoteApp/react-frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - notes-backend
+    networks:
+#      - app-net
+      - outside
+
+networks:
+  outside:
+    external:
+      name: ExternalNetwork
+#  app-net:
+#    internal: true
+
