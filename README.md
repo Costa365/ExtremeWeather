@@ -14,6 +14,8 @@ It consists of the following services:
 | Backend  | Periodically reads the latest weather data from Ogimet and exposes a REST API |
 | Frontend  | Gets the latest data from the backend and creates the web page  |
 
+Use the app here: App can be used at [extreme-weather.gq](https://extreme-weather.gq/).
+
 ### Run app
 #### Development: 
 ```
