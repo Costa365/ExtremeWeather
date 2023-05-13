@@ -2,36 +2,32 @@ version: '3'
 services:
   backend:
     build: ./backend
+    container_name: extreme-weather-backend
     ports:
       - "5004:5004"
     volumes:
       - ./backend:/backend
+    restart: always
     networks:
-      - outside
+      - nginx-proxy
 
   frontend:
     build: ./frontend
+    container_name: extreme-weather-frontend
     ports:
       - "5005:5005"
     volumes:
       - ./frontend:/frontend
+    environment:
+      VIRTUAL_HOST: extremeweather.ga
+      PORT: 5005
     depends_on:
       - backend
+    restart: always
     networks:
-      - outside
-
-  nginx: 
-    image: nginx:latest
-    container_name: production_nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-#      - 443:443
-    networks:
-      - outside
+      - nginx-proxy
 
 networks:
-  outside:
-    external:
-      name: ExternalNetwork
+  nginx-proxy:
+    external: true
+

@@ -5,12 +5,12 @@ class RegionInfo():
     pass
 
   def getRegions(self):
-    request = "http://backend:5004/regions"
+    request = "http://extreme-weather-backend:5004/regions"
     r = requests.get(request)
     return r.json()
 
   def getResults(self, region):
-    request = "http://backend:5004/results/{0}".format(region)
+    request = "http://extreme-weather-backend:5004/results/{0}".format(region)
     r = requests.get(request)
     return r.json()
 
