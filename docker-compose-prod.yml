@@ -19,7 +19,7 @@ services:
     volumes:
       - ./frontend:/frontend
     environment:
-      VIRTUAL_HOST: extremeweather.ga
+      VIRTUAL_HOST: weather.costa365.site
       PORT: 5005
     depends_on:
       - backend

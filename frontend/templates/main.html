@@ -24,38 +24,45 @@
         <img class="banner" src="/static/earth-banner.jpg" alt="banner">
         <div class="bottom-right">Extreme Weather Today</div>
       </div>
-      <select id="regions" required onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-        <option value="">Select a region</option>
-        {% for reg in regions %}
-          <option value="{{reg[0]}}">{{ reg[1] }}</option>
-        {% endfor %}
-      </select>
 
-      <p class="results-date">
-        {{ results[0][0] }} - {{ results[0][1] }}
-      </p> 
-      
-      {% for key, value in results[1].items() %}
-        <label for="{{key}}">{{key}}</label>
-        <table id = "{{key}}">
-          <col width="75%" />
-          <col width="25%" />
-          <thead>
-            <tr>
-              <th scope="col">Place</th>
-              <th class="right-align" scope="col">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for res in value %}
-              <tr>
-                <td>{{res[0]}}</td>
-                <td class ="right-align">{{res[1]}}</td>
-              </tr>
+      {% if results is defined and results|length > 0 %}
+
+        <select id="regions" required onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          <option value="">Select a region</option>
+            {% for reg in regions %}
+                <option value="{{reg[0]}}">{{ reg[1] }}</option>
             {% endfor %}
-          </tbody>
-        </table>
-      {% endfor %}
+        </select>
+
+        <p class="results-date">
+          {{ results[0][0] }} - {{ results[0][1] }}
+        </p> 
+      
+        {% for key, value in results[1].items() %}
+          <label for="{{key}}">{{key}}</label>
+          <table id = "{{key}}">
+            <col width="75%" />
+            <col width="25%" />
+            <thead>
+              <tr>
+                <th scope="col">Place</th>
+                <th class="right-align" scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for res in value %}
+                <tr>
+                  <td>{{res[0]}}</td>
+                  <td class ="right-align">{{res[1]}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endfor %}
+
+      {% else %}
+         <p><i>API is currently unavailable</i></p>
+      {% endif %}
       
     </div>
   </body>
