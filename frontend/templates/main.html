@@ -39,8 +39,9 @@
         </p> 
       
         {% for key, value in results[1].items() %}
-          <label for="{{key}}">{{key}}</label>
-          <table id = "{{key}}">
+          {% set title = key[2:] %}
+          <label for="{{title}}">{{title}}</label>
+          <table id = "{{title}}">
             <col width="75%" />
             <col width="25%" />
             <thead>

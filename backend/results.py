@@ -57,9 +57,9 @@ class Results():
     all = []
     all.append(self.title)
     extremes = {}
-    extremes["Maximum Temperature"] = self.resultsMax
-    extremes["Minimum Temperature"] = self.resultsMin
-    extremes["Maximum Precipitation"] = self.resultsPrc
-    extremes["Maximum Wind Gust"] = self.resultsWin
+    extremes["1 Maximum Temperature"] = self.resultsMax
+    extremes["2 Minimum Temperature"] = self.resultsMin
+    extremes["3 Maximum Precipitation"] = self.resultsPrc
+    extremes["4 Maximum Wind Gust"] = self.resultsWin
     all.append(extremes)
     return all
