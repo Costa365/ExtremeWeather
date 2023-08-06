@@ -6,12 +6,14 @@ class Results():
     self.sections = {
       "maximum": ["Maximum temperature in 24h. ",0],
       "minimum": ["Minimum temperature in 24h. ",0],
+      "highest_ave": ["Highest average temperature in 24h. ",0],
+      "lowest_ave": ["Lowest average temperature in 24h. ",0],
       "precipitation": ["24 hours amount precipitation. ",0],
       "wind": ["Maximum wind Gust in 24 hours. ",0]
     }
     self.__findSectionPositions()
     self.resultsMax = self.__parseResults(self.sections["maximum"][1],self.sections["minimum"][1])
-    self.resultsMin = self.__parseResults(self.sections["minimum"][1],self.sections["precipitation"][1])
+    self.resultsMin = self.__parseResults(self.sections["minimum"][1],self.sections["highest_ave"][1])
     self.resultsPrc = self.__parseResults(self.sections["precipitation"][1],self.sections["wind"][1])
     self.resultsWin = self.__parseResults(self.sections["wind"][1],len(self.html))
     self.title = self.__parseTitle()
@@ -35,6 +37,8 @@ class Results():
   def __findSectionPositions(self):
     self.sections["maximum"][1] = self.html.find(self.sections["maximum"][0])
     self.sections["minimum"][1] = self.html.find(self.sections["minimum"][0])
+    self.sections["highest_ave"][1] = self.html.find(self.sections["highest_ave"][0])
+    self.sections["lowest_ave"][1] = self.html.find(self.sections["lowest_ave"][0])
     self.sections["precipitation"][1] = self.html.find(self.sections["precipitation"][0])
     self.sections["wind"][1] = self.html.find(self.sections["wind"][0])
 
